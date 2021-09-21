@@ -4,6 +4,7 @@ Brave-Bot is a general-purpose Discord bot for Brave Cougars
 
 ## Installation
 Download NodeJS v16.6+
+<br />
 NodeJS:  https://nodejs.org/en/
 
 Download this repo in the terminal of your desired directory
