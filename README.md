@@ -25,9 +25,9 @@ node .
 
 ## Contributing
 
--Fork this repo
--Commit changes to your fork
--Create a pull request
+- Fork this repo
+- Commit changes to your fork
+- Create a pull request
 
 <br />
 
