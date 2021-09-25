@@ -12,5 +12,6 @@ __No arguments__
 ## The `fruit` command
 __No arguments__
 > $fruit
-
-
+Prints fruit list
+`<1-50>` `<fruit>`
+> $fruit 10 watermelon
