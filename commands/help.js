@@ -1,30 +1,32 @@
-const Discord = require('discord.js');
+//Imports
+const Discord, { MessageButton } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-    name: "help",
-    description: "Lists avaiable commands",
+    data: new SlashCommandBuilder()
+        .setName("help")
+        .setDescription("Lists avaiable commands"),
     execute(message, args, commandFiles){
         const embed = new Discord.MessageEmbed();
-
         embed.setTitle("Command List");
         embed.setDescription("prefix -> $");
-        
+
         commandFiles.sort();
         
         for (const file of commandFiles) {
-            const command = require(`${file}`);
+            const command = require(`../commands/${file}`);
             if(args[0]){
-                if(command.name == args[0]){
+                if(command.data.name == args[0]){
                     embed.addFields(
-                        { name: `$ ${command.name}`, value: `desc: ${command.description}`}
+                        { name: `$ ${command.data.name}`, value: `desc: ${command.data.description}`}
                     );
                     break;
                 }
             }
             else{
                 embed.addFields(
-                    { name: `$ ${command.name}`, value: `desc: ${command.description}`}
-                    );
+                    { name: `$ ${command.data.name}`, value: `desc: ${command.data.description}`}
+                );
             }      
         }
 
