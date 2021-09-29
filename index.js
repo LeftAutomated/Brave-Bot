@@ -2,8 +2,8 @@
 const { Client, Intents, Collection } = require('discord.js')
 const { token, prefix } = require('./config.json');
 const date = require('date-and-time');
+const coin = require('./data/coins.json');
 const fs = require('fs');
-
 
 //Defining bot
 const client = new Client({
@@ -34,6 +34,21 @@ client.on('messageCreate', message =>{
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
+    const list = client.guilds.cache.get("885536440216338543"); 
+    list.members.cache.each(member => {
+        if(!coin[message.author.id]){
+            coin[message.author.id] = {
+                name: message.author.id,
+                coins: 0
+            }
+            fs.writeFileSync(`${coin}`, JSON.stringify(coin), err =>{
+                if(err){
+                    console.log(err);
+                }
+            });
+        }
+    });
+
     if(command === 'help'){
         client.commands.get('help').execute(message, args, commandFiles);
     }
@@ -42,6 +57,15 @@ client.on('messageCreate', message =>{
     }
     else if(command === 'stonks'){
         client.commands.get('stonks').execute(message, args, client);
+    }
+    else if(command === 'profile'){
+        client.commands.get('profile').execute(message, args);
+    }
+    else if(command === 'duel'){
+        client.commands.get('duel').execute(message, args, list);
+    }
+    else if(command === 'lb'){
+        client.commands.get('lb').execute(message, args, client);
     }
     else{
         message.channel.send("**Invalid command >:()**");
