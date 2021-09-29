@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord, { MessageButton } = require('discord.js');
+const Discord = require('discord.js');
 const fs = require('fs')
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
 
         //No arguments give fruit list
         if(args[0] == undefined){
-
+            
             const embed = new Discord.MessageEmbed();
             embed.setTitle("Fruit List");
             embed.setDescription("Syntax: $fruit <1 - 50> <fruit>");
@@ -34,7 +34,7 @@ module.exports = {
 
             embed.setColor('36393F');
 
-            message.channel.send({ embeds: [embed], components: [row] });
+            message.channel.send({ embeds: [embed]});
             return;
         }
 
