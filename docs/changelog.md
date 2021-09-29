@@ -1,5 +1,10 @@
 # Change Log
 
+## Version 0.1.2 | 9/26/2021
+- Added `$duel` command
+- Added `$profile` command
+- Added `$lb` command
+
 ## Version 0.1.1 | 9/22/2021
 - Added `$stonks` command
 - Updated `$fruit` command
