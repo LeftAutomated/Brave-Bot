@@ -24,13 +24,21 @@ client.on('ready', () => {
     const now = new Date();
     date.format(now, 'YYYY/MM/DD HH:mm:ss');
     client.channels.cache.get("889981160246099968").send(`Brave-Bot is online at ${now}`);
-    client.user.setActivity("with humans", {type: "PLAYING"});
+    //client.channels.cache.get("893402448474038292").send("the works of the wizard");
+    client.user.setActivity("with people", {type: "PLAYING"});
 });
 
 //Determine whether user's message meets one of the commands
 client.on('messageCreate', message =>{
+    if(message.channel.id === '893357277002747934')
+        message.react('🤔');
+    else if(message.channel.id === '885536440719663116')
+        message.react('👋');
+    else if(message.channel.id === '893374537884893194'){
+        message.react('<a:catjam:893360258091712522>');
+        message.react('<a:pogdance:893516135079751721>');
+    }
     if(!message.content.startsWith(prefix) || message.author.bot) return;
-    
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
@@ -67,9 +75,13 @@ client.on('messageCreate', message =>{
     else if(command === 'lb'){
         client.commands.get('lb').execute(message, args, client);
     }
+    else if(command === 'wizard'){
+        client.commands.get('wizard').execute(message, args, client);
+    }
     else{
         message.channel.send("**Invalid command >:()**");
     }
+    
 });
 
 //Login with token

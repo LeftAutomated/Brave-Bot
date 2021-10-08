@@ -17,6 +17,14 @@ Install node dependencies:
 npm install
 ```
 
+Make config.json file for prefix and token:
+```
+{
+    "token": "Your login token",
+    "prefix": "$"
+}
+```
+
 ## Usage
 
 Run this command in the terminal to activate the bot
