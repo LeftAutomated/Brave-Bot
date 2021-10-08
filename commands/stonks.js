@@ -1,7 +1,7 @@
-const Canvas = require('canvas');
 const { MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const path = require('path')
+const Canvas = require('canvas');
+const path = require('path');
 
 module.exports = {
     data: new SlashCommandBuilder()

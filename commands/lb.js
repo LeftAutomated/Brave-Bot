@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const coin = require('../data/coins.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,17 +9,9 @@ module.exports = {
         const embed = new Discord.MessageEmbed();
         embed.setTitle("Leaderboard");
         
-        var ranks = "";
-        var users = "";
-        var points = "";
-        var place = 1;
-
-        for(var key in coin){
-            ranks += place + "\n";
-            users += "<@" + coin[key].name + ">\n";
-            points += coin[key].coins + "\n";
-            place++;
-        }
+        var ranks = "1";
+        var users = "Beta Tester";
+        var points = "999999999999999";
 
         embed.addField(
             'Rank', ranks, true);

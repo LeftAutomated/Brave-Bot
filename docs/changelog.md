@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 0.1.3 | 10/8/2021
+- Added `$wizard` command
+
 ## Version 0.1.2 | 9/26/2021
 - Added `$duel` command
 - Added `$profile` command

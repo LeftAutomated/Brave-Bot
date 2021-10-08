@@ -17,13 +17,8 @@ Install node dependencies:
 npm install
 ```
 
-Make config.json file for prefix and token:
-```
-{
-    "token": "Your login token",
-    "prefix": "$"
-}
-```
+Change `.env.sample` to `.env` file
+and edit prefix and token
 
 ## Usage
 
@@ -31,6 +26,12 @@ Run this command in the terminal to activate the bot
 ```
 node .
 ```
+
+or
+
+24/7 Hosting
+Run this repo on replit
+and use uptimerobot 
 
 ## Contributing
 

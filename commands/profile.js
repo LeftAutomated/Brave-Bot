@@ -1,16 +1,12 @@
-const { stripIndents } = require('common-tags');
 const Discord = require('discord.js');
-const coin = require('../data/coins.json');
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { stripIndents } = require('common-tags');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('profile')
         .setDescription("Shows profile"),
-    execute(message, args){
-
-        
-        
+    execute(message){
         const embed = new Discord.MessageEmbed();
         var roles = "";
         message.member.roles.cache.forEach(x => {
@@ -23,8 +19,7 @@ module.exports = {
         embed.addField(
             'Member Information', stripIndents`**Display name |** ${message.member.displayName} 
             **Joined at |** ${Intl.DateTimeFormat('en-US').format(message.member.joinedAt)} 
-            **Roles |** ${roles}
-            **Points |** ${coin[message.author.id].coins} `, true);
+            **Roles |** ${roles}`, true);
         
         embed.addField(
             'User Information', stripIndents`**ID |** ${message.author.id}

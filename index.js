@@ -1,9 +1,13 @@
 //Imports
 const { Client, Intents, Collection } = require('discord.js')
-const { token, prefix } = require('./config.json');
 const date = require('date-and-time');
-const coin = require('./data/coins.json');
 const fs = require('fs');
+const keepAlive = require('./server');
+
+require("dotenv").config();
+
+const token = process.env.TOKEN;
+const prefix = process.env.PREFIX;
 
 //Defining bot
 const client = new Client({
@@ -24,7 +28,7 @@ client.on('ready', () => {
     const now = new Date();
     date.format(now, 'YYYY/MM/DD HH:mm:ss');
     client.channels.cache.get("889981160246099968").send(`Brave-Bot is online at ${now}`);
-    //client.channels.cache.get("893402448474038292").send("the works of the wizard");
+    //client.channels.cache.get("893402448474038292").send("the works of the wizard");  // for trolling
     client.user.setActivity("with people", {type: "PLAYING"});
 });
 
@@ -42,47 +46,35 @@ client.on('messageCreate', message =>{
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    const list = client.guilds.cache.get("885536440216338543"); 
-    list.members.cache.each(member => {
-        if(!coin[message.author.id]){
-            coin[message.author.id] = {
-                name: message.author.id,
-                coins: 0
-            }
-            fs.writeFileSync(`${coin}`, JSON.stringify(coin), err =>{
-                if(err){
-                    console.log(err);
-                }
-            });
-        }
-    });
-
     if(command === 'help'){
         client.commands.get('help').execute(message, args, commandFiles);
     }
     else if(command === 'fruit'){
-        client.commands.get('fruit').execute(message, args, client);
+        client.commands.get('fruit').execute(message, args);
     }
     else if(command === 'stonks'){
         client.commands.get('stonks').execute(message, args, client);
     }
     else if(command === 'profile'){
-        client.commands.get('profile').execute(message, args);
+        client.commands.get('profile').execute(message);
     }
     else if(command === 'duel'){
-        client.commands.get('duel').execute(message, args, list);
+        client.commands.get('duel').execute(message, args);
     }
     else if(command === 'lb'){
         client.commands.get('lb').execute(message, args, client);
     }
     else if(command === 'wizard'){
-        client.commands.get('wizard').execute(message, args, client);
+        client.commands.get('wizard').execute(message);
     }
     else{
         message.channel.send("**Invalid command >:()**");
     }
     
 });
+
+//Host server
+keepAlive();
 
 //Login with token
 client.login(token);

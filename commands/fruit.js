@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('fruit')
         .setDescription("Gives a random fruit"),
-    execute(message, args, client){
+    execute(message, args){
         const fruitEmojiJSON = JSON.parse(fs.readFileSync('./data/fruits.json', 'utf8'));
         var fruitsEmoji = [];
         fruitEmojiJSON.forEach(node => {
