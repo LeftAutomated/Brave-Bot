@@ -57,11 +57,11 @@ client.on('ready', () => {
 
     const now = new Date();
     date.format(now, 'YYYY/MM/DD HH:mm:ss');
-    client.channels.cache.get("889981160246099968").send(`Brave-Bot is online at ${now}`);
+    client.channels.cache.get("889981160246099968").send(`CoCo-Bot is online at ${now}`);
 
     //client.channels.cache.get("893402448474038292").send("the works of the wizard");  // for trolling
     
-    console.log('Brave-Bot is online.');
+    console.log('CoCo-Bot is online.');
 });
 
 //Client Message Handling 
