@@ -7,7 +7,6 @@ const Sequelize = require('sequelize');
 
 //Configuration
 require("dotenv").config();
-
 const token = process.env.TOKEN;
 const prefix = process.env.PREFIX;
 
@@ -24,54 +23,66 @@ for(const file of commandFiles){
     client.commands.set(command.data.name, command);
 }
 
-//Database connection WIP
-/* const sequelize = new Sequelize('database', 'user', 'password', {
+//Database connection
+const sequelize = new Sequelize('database', 'user', 'password', {
 	host: 'localhost',
 	dialect: 'sqlite',
 	logging: false,
 	storage: 'database.sqlite',
-}); */
+});
 
-//Defining database model WIP
-/* const Emojis = sequelize.define('emojis', {
-	name: {
+//Defining database model
+const Fruits = sequelize.define('fruits', {
+    emojiID: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
-    },
-    id: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        primaryKey: true,
         unique: true,
     },
 });
- */
 
-//Set bot's activity
+//When bot is on
 client.on('ready', () => {
     
-    /* Emojis.sync(); */
+    Fruits.sync();
 
+    //Add server emojis
+    client.emojis.cache.map(async (e) => {
+        const temp = await Fruits.findOne({where: { emojiID: `${e}` }})
+        if(!temp)
+            await Fruits.create({ 
+                emojiID: `${e}`,
+            })
+    });
+    
     client.user.setActivity("with people", {type: "PLAYING"});
 
     const now = new Date();
     date.format(now, 'YYYY/MM/DD HH:mm:ss');
     client.channels.cache.get("889981160246099968").send(`CoCo-Bot is online at ${now}`);
 
-    //client.channels.cache.get("893402448474038292").send("the works of the wizard");  // for trolling
+    //client.channels.cache.get("889916540047204422").send(`testing`);  // for trolling
     
     console.log('CoCo-Bot is online.');
 });
 
-//Client Message Handling 
+//Message Handling
 client.on('messageCreate', message =>{
+    if(message.channel.id === '896422206299594752')               //#art-drop-no-text
+        if(!message.member.roles.cache.has('896277755929456730')) //Admin role
+            if(message.attachments.size == 0){
+                message.delete()
+                .catch(console.error);
+                return;
+            }
 
-    if(message.channel.id === '893357277002747934')
+    if(message.channel.id === '896499896306253824')         //#bot-spam
+        message.channel.send('Code Coogs');
+
+    if(message.channel.id === '893357277002747934')         //#bot-suggestions
         message.react('🤔');
-    else if(message.channel.id === '885536440719663116')
+    else if(message.channel.id === '885536440719663116')    //#welcome
         message.react('👋');
-    else if(message.channel.id === '893374537884893194'){
+    else if(message.channel.id === '893374537884893194'){   //#play-music
         message.react('<a:catjam:893360258091712522>');
         message.react('<a:pogdance:893516135079751721>');
     }
@@ -80,50 +91,27 @@ client.on('messageCreate', message =>{
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    if(command === 'help'){
+    if(command === 'help')
         client.commands.get('help').execute(message, args, commandFiles);
-    }
-    else if(command === 'fruit'){
-        client.commands.get('fruit').execute(message, args);
-    }
-    else if(command === 'stonks'){
+    else if(command === 'fruit')
+        client.commands.get('fruit').execute(message, args, Fruits);
+    else if(command === 'addfruit')
+        client.commands.get('addfruit').execute(message, args, Fruits);
+    else if(command === 'deletefruit')
+        client.commands.get('deletefruit').execute(message, args, Fruits);
+    else if(command === 'stonks')
         client.commands.get('stonks').execute(message, args, client);
-    }
-    else if(command === 'profile'){
+    else if(command === 'profile')
         client.commands.get('profile').execute(message);
-    }
-    else if(command === 'duel'){
+    else if(command === 'duel')
         client.commands.get('duel').execute(message, args);
-    }
-    else if(command === 'lb'){
+    else if(command === 'lb')
         client.commands.get('lb').execute(message, args, client);
-    }
-    else if(command === 'wizard'){
+    else if(command === 'wizard')
         client.commands.get('wizard').execute(message);
-    }
-    else{
+    else
         message.channel.send("**Invalid command >:()**");
-    }
-    
 });
-
-//Client Interaction Handling WIP
-/* client.on('interactionCreate', async interaction => {
-    if(!interaction.isCommand()) 
-        return;
-
-    const command = client.commands.get(interaction.commandName.toLowerCase());
-
-    try{
-        command.execute(interaction);
-    }
-    catch(error){
-        console.error(error);
-        interaction.followUp({
-            content: 'Stupid Error',
-        });
-    }
-}); */
 
 //Host server
 keepAlive();

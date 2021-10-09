@@ -17,14 +17,14 @@ module.exports = {
             if(args[0]){
                 if(command.data.name == args[0]){
                     embed.addFields(
-                        { name: `$ ${command.data.name}`, value: `desc: ${command.data.description}`}
+                        { name: `$ ${command.data.name}`, value: `${command.data.description}`}
                     );
                     break;
                 }
             }
             else{
                 embed.addFields(
-                    { name: `$ ${command.data.name}`, value: `desc: ${command.data.description}`}
+                    { name: `$ ${command.data.name}`, value: `${command.data.description}`}
                 );
             }      
         }

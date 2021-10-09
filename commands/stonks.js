@@ -36,7 +36,7 @@ module.exports = {
         let mes;
         if(str == ""){
             mes = ``;
-            message.channel.send(`\`\`\`Syntax: $stonks <any>\`\`\``);
+            message.channel.send(`\`\`\`Syntax: $stonks (any)\`\`\``);
             return;
         }
         else{

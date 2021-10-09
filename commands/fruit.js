@@ -1,18 +1,15 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js');
-const fs = require('fs')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('fruit')
         .setDescription("Gives a random fruit"),
-    execute(message, args){
-        const fruitEmojiJSON = JSON.parse(fs.readFileSync('./data/fruits.json', 'utf8'));
-        var fruitsEmoji = [];
-        fruitEmojiJSON.forEach(node => {
-           fruitsEmoji.push(node.id);
-        });
+    async execute(message, args, Fruits){
+        var fruitsEmoji = await Fruits.findAll({ attributes: ['emojiID'] }).map(fruit => fruit.emojiID);
+
         const ranIndex = Math.trunc(Math.random() * fruitsEmoji.length);
+
         var fruitEmoji = String(fruitsEmoji[ranIndex]);
 
         //No arguments give fruit list
@@ -20,7 +17,7 @@ module.exports = {
             
             const embed = new Discord.MessageEmbed();
             embed.setTitle("Fruit List");
-            embed.setDescription("Syntax: $fruit <1 - 50> <fruit>");
+            embed.setDescription("$fruit (1 - 50) (fruit)");
 
             fruitsEmoji.sort();
         
@@ -38,7 +35,7 @@ module.exports = {
             return;
         }
 
-        //find emoji in fruit list
+        //Find emoji in fruit list
         var index = -1;
         for(var i = 0; i < fruitsEmoji.length; i++){
             var currentValue = fruitsEmoji[i];
@@ -53,7 +50,7 @@ module.exports = {
              
         //Catch error if invalid number
         if(!Number.isInteger(parseInt(args[0])) || index == - 1 || parseInt(args[0]) > 50 || parseInt(args[0]) <= 0){
-            message.channel.send(`\`\`\`Syntax: $fruit <1 - 50> <name of fruit>\`\`\``);
+            message.channel.send(`\`\`\`$fruit (1 - 50) (name of fruit)\`\`\``);
             return;
         }
 
