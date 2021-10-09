@@ -3,7 +3,9 @@ const { Client, Intents, Collection } = require('discord.js')
 const date = require('date-and-time');
 const fs = require('fs');
 const keepAlive = require('./server');
+const Sequelize = require('sequelize');
 
+//Configuration
 require("dotenv").config();
 
 const token = process.env.TOKEN;
@@ -22,18 +24,49 @@ for(const file of commandFiles){
     client.commands.set(command.data.name, command);
 }
 
+//Database connection WIP
+/* const sequelize = new Sequelize('database', 'user', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	storage: 'database.sqlite',
+}); */
+
+//Defining database model WIP
+/* const Emojis = sequelize.define('emojis', {
+	name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    id: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        primaryKey: true,
+        unique: true,
+    },
+});
+ */
+
 //Set bot's activity
 client.on('ready', () => {
-    console.log('Brave-Bot is online.');
+    
+    /* Emojis.sync(); */
+
+    client.user.setActivity("with people", {type: "PLAYING"});
+
     const now = new Date();
     date.format(now, 'YYYY/MM/DD HH:mm:ss');
     client.channels.cache.get("889981160246099968").send(`Brave-Bot is online at ${now}`);
+
     //client.channels.cache.get("893402448474038292").send("the works of the wizard");  // for trolling
-    client.user.setActivity("with people", {type: "PLAYING"});
+    
+    console.log('Brave-Bot is online.');
 });
 
-//Determine whether user's message meets one of the commands
+//Client Message Handling 
 client.on('messageCreate', message =>{
+
     if(message.channel.id === '893357277002747934')
         message.react('🤔');
     else if(message.channel.id === '885536440719663116')
@@ -42,6 +75,7 @@ client.on('messageCreate', message =>{
         message.react('<a:catjam:893360258091712522>');
         message.react('<a:pogdance:893516135079751721>');
     }
+
     if(!message.content.startsWith(prefix) || message.author.bot) return;
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -72,6 +106,24 @@ client.on('messageCreate', message =>{
     }
     
 });
+
+//Client Interaction Handling WIP
+/* client.on('interactionCreate', async interaction => {
+    if(!interaction.isCommand()) 
+        return;
+
+    const command = client.commands.get(interaction.commandName.toLowerCase());
+
+    try{
+        command.execute(interaction);
+    }
+    catch(error){
+        console.error(error);
+        interaction.followUp({
+            content: 'Stupid Error',
+        });
+    }
+}); */
 
 //Host server
 keepAlive();

@@ -1,6 +1,7 @@
 const { MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Canvas = require('canvas');
+const { registerFont } = require('canvas');
 const path = require('path');
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
         const canvas = Canvas.createCanvas(1568, 1585);
         const ctx = canvas.getContext('2d');
         const background = await Canvas.loadImage(
-            path.join(__dirname, './assets/stonks.png')
+            path.join(__dirname, './assets/images/stonks.png')
         )
         let x = 0;
         let y = 0;
@@ -42,7 +43,9 @@ module.exports = {
             mes = `${str}`;
         }
 
+        registerFont('./commands/assets/fonts/Roboto-Bold.ttf', { family: 'sans-serif' });
         ctx.font = 'bold 100px sans-serif';
+
         x = canvas.width / 2 - ctx.measureText(mes).width/2;
         y = 200;
         ctx.fillText(mes, x, y);

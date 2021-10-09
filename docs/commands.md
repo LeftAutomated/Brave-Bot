@@ -1,6 +1,6 @@
 # Commands
 
-Prefix `$`
+## Prefix `$`
 
 ## The `help` command
 __No arguments__
@@ -8,12 +8,15 @@ __No arguments__
 
 `fruit` __argument__
 > $help fruit
+
 Embed of specific command
 
 ## The `fruit` command
 __No arguments__
 > $fruit
+
 Embed of fruit list
+
 `<1-50>` `<fruit>`
 > $fruit 10 watermelon
 
@@ -26,10 +29,14 @@ Stonks picture with any string
 __No arguments__
 > $profile
 
-## The `$duel` command
+## The `duel` command
 __No arguments__
 > $duel
 
 ## The `lb` command
 __No arguments__
 > $lb
+
+## The `wizard` command
+__No arguments__
+> $wizard

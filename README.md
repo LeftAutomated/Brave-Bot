@@ -1,15 +1,19 @@
-# Brave-Bot
+# CoCo-Bot
 
-Brave-Bot is a general-purpose Discord bot for Brave Cougars 
+CoCo-Bot is a general-purpose Discord bot for CoCo Cougars 
 
-## Installation
-Download NodeJS v16.6+
-<br />
-NodeJS:  https://nodejs.org/en/
+## **Local Hosting**
 
-Download this repo in the terminal of your desired directory
+Download **NodeJS v16.6+** at https://nodejs.org/en/
+
+Download this repo in your desired directory
 ```
-git clone https://github.com/LeftAutomated/Brave-Bot.git
+git clone https://github.com/LeftAutomated/CoCo-Bot.git
+```
+
+Change to the cloned directory
+```
+cd CoCo-Bot
 ```
 
 Install node dependencies:
@@ -18,20 +22,58 @@ npm install
 ```
 
 Change `.env.sample` to `.env` file
-and edit prefix and token
-
-## Usage
+and edit **TOKEN** and **PREFIX**
 
 Run this command in the terminal to activate the bot
 ```
 node .
 ```
 
-or
+## **Server Hosting** (24/7 for free)
 
-24/7 Hosting
-Run this repo on replit
-and use uptimerobot 
+Create a repl at https://replit.com
+<br />
+Template: Node.js
+
+Download this repo in the shell
+```
+git clone https://github.com/LeftAutomated/CoCo-Bot.git
+```
+
+**Make sure to pull all the files and folders out from CoCo-Bot folder**
+
+Install node dependencies in the shell:
+```
+npm install node@16
+```
+Add **Secrets** (environmental variables)
+<br />
+
+**Bot Token**
+
+> Key: TOKEN 
+
+> Value: YOURTOKEN
+
+**Prefix**
+
+> Key: PREFIX
+
+> Value: YOURPREFIX
+
+Use the **Run** button to activate the bot and server
+
+Copy the url (ends with .repl.co)
+
+Create a monitor at https://replit.com
+
+> Monitor Type: HTTP(s)
+
+> Friendly Name: ANY NAME
+
+> URL: PASTE URL (ends with .repl.co)
+
+Check the email contact for monitor alerts
 
 ## Contributing
 
