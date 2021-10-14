@@ -12,7 +12,6 @@ module.exports = {
             if(args[0] == undefined)
                 return message.reply(`\`\`\`$addfruit <:emoji_name:emoji_id>\`\`\``);
             var fruitId = args[0];
-            console.log(`${fruitId}`);
             if(fruitId.search(":") == -1)
                 return message.reply(`\`\`\`Format <:emoji_name:emoji_id>\`\`\`\n\`\`\`Use .\\:emoji_name:\`\`\``);
             var fruitName = fruitId.substring(fruitId.search(":")+1);

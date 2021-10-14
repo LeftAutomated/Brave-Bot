@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 0.1.4 | 10/14/2021
+- Sqlite database for fruits
+
 ## Version 0.1.3 | 10/8/2021
 - Updated `$wizard` command
 - Updated `$duel` command

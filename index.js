@@ -31,7 +31,7 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	storage: 'database.sqlite',
 });
 
-//Defining database model
+//Database model for emojis
 const Fruits = sequelize.define('fruits', {
     emojiID: {
         type: Sequelize.STRING,
@@ -67,25 +67,20 @@ client.on('ready', () => {
 
 //Message Handling
 client.on('messageCreate', message =>{
-    if(message.channel.id === '896422206299594752')               //#art-drop-no-text
-        if(!message.member.roles.cache.has('896277755929456730')) //Admin role
-            if(message.attachments.size == 0){
-                message.delete()
-                .catch(console.error);
-                return;
-            }
-
-    if(message.channel.id === '896499896306253824')         //#bot-spam
-        message.channel.send('Code Coogs');
+    if(message.channel.id === '896422206299594752'){    //#art-drop-no-text
+        let x = message.member.roles.cache.filter(role => role.name === "Admin");
+        if(x.size == 0)
+        if(message.attachments.size == 0){
+            message.delete()
+            .catch(console.error);
+            return;
+        }
+    }               
 
     if(message.channel.id === '893357277002747934')         //#bot-suggestions
         message.react('🤔');
     else if(message.channel.id === '885536440719663116')    //#welcome
         message.react('👋');
-    else if(message.channel.id === '893374537884893194'){   //#play-music
-        message.react('<a:catjam:893360258091712522>');
-        message.react('<a:pogdance:893516135079751721>');
-    }
 
     if(!message.content.startsWith(prefix) || message.author.bot) return;
     const args = message.content.slice(prefix.length).split(/ +/);
@@ -111,6 +106,23 @@ client.on('messageCreate', message =>{
         client.commands.get('wizard').execute(message);
     else
         message.channel.send("**Invalid command >:()**");
+});
+
+//Deleted Message Handling
+client.on("messageDelete", async (message) => {
+    if(!message.guild) 
+        return;
+
+    let msg = `Message from <@${message.author.id}> was deleted -> ${message.content}`;
+    let channel = message.guild.channels.cache.find(x => x.name === "message-archive");
+    channel.send(msg); 
+    if (message.attachments) {
+        message.attachments.forEach(attachment => {
+            const link = attachment.url;
+            channel.send({ files: [link] });
+        });
+    }
+
 });
 
 //Host server
