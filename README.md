@@ -1,4 +1,4 @@
-# CoCo-Bot
+# CoCo-Bot [DEAD]
 
 CoCo-Bot is a general-purpose Discord bot for Code Coogs Officers
 
