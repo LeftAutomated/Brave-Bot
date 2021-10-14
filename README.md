@@ -1,6 +1,6 @@
 # CoCo-Bot
 
-CoCo-Bot is a general-purpose Discord bot for Code Coogs 
+CoCo-Bot is a general-purpose Discord bot for Code Coogs Officers
 
 ## **Local Hosting**
 
